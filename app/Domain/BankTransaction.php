@@ -19,7 +19,7 @@ class BankTransaction implements Transaction
         $inputs = $this->request->validate([
             'transfer_date' => 'required|date|date_format:d-m-Y',
             'customer_name' => 'required|string',
-            'account_number' => 'required|string|alpha_num:6',
+            'account_number' => 'required|string|alpha_num|digits:6',
             'amount' => 'required|numeric',
         ]);
 

@@ -3,6 +3,8 @@
 namespace App\Domain;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class CashTransaction implements Transaction
 {
@@ -16,7 +18,7 @@ class CashTransaction implements Transaction
 
     public function validate()
     {
-        $inputs = $this->request->validate([
+        $validator = Validator::make($this->request->all(), [
             'banknote_1' => 'required|numeric',
             'banknote_5' => 'required|numeric',
             'banknote_10' => 'required|numeric',
@@ -24,7 +26,11 @@ class CashTransaction implements Transaction
             'banknote_100' => 'required|numeric',
         ]);
 
-        $this->inputs = $inputs;
+        if ($validator->fails()) {
+            throw new ValidationException($validator);
+        }
+
+        $this->inputs = $validator->validated();;
     }
 
     public function amount()
