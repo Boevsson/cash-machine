@@ -36,6 +36,9 @@
             <div>{{$key}}: {{$input}}</div>
         @endforeach
     </div>
+    <div class="">
+        <a href="{{ url('/') }}">Go home</a>
+    </div>
 </div>
 </body>
 </html>
